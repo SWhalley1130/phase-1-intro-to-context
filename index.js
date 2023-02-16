@@ -1,7 +1,5 @@
 // Your code here
 
-const { copySync } = require("file-system");
-
 let exampleArray=['Sarah',"Whalley","Student",20]
 let exampleArray2=["John","Smith","Dev", 40]
 let exampleArray3=[['Sarah',"Whalley","Student",20],["John","Smith","Dev", 40]]
@@ -25,12 +23,6 @@ function createEmployeeRecords(arrayOfArrays)
 {
     let newArray=arrayOfArrays.map(element=>createEmployeeRecord(element))
     return newArray;
-    // let employRecords=[];
-    // arrayOfArrays.forEach(array=>
-    //     {
-    //         employRecords.push(createEmployeeRecord(array));
-    //     })
-    // return employRecords;
 }
 
 function createTimeInEvent(empRecord,dateStamp)
@@ -57,22 +49,11 @@ function createTimeOutEvent(empRecord,dateStamp)
     return empRecord;
 }
 
-function hoursWorkedOnDate(empRecord,date)
+function hoursWorkedOnDate(empRecord,day)
 {
-    let index=0;
-    let hoursWorked=0;
-    empRecord.timeInEvents.forEach(record=>
-        {
-            for (const value in record)
-            {
-                if(record[value]===date)
-                {
-                    hoursWorked=empRecord.timeOutEvents[index].hour-empRecord.timeInEvents[index].hour;
-                }
-            }
-            index++;
-        })
-        return hoursWorked/100;
+    const hourClockedIn=empRecord.timeInEvents.filter(instance=>instance.date===day);
+    const hourClockedOut=empRecord.timeOutEvents.filter(instance=>instance.date===day);
+    return (hourClockedOut[0].hour-hourClockedIn[0].hour)/100;
 }
 
 function wagesEarnedOnDate(empRecord,date)
@@ -105,17 +86,16 @@ function calculatePayroll(empArray)
 // EXAMPLE DATA
 //////////////////
 
-createEmployeeRecords(exampleArray3)
 
-// let newRecord=createEmployeeRecords(exampleArray3)
-// createTimeInEvent(newRecord[0],"2023-02-15 0800")
-// createTimeOutEvent(newRecord[0],"2023-02-15 1600")
-// createTimeInEvent(newRecord[0],"2023-02-16 0700")
-// createTimeOutEvent(newRecord[0],"2023-02-16 1200")
+let newRecord=createEmployeeRecords(exampleArray3)
+createTimeInEvent(newRecord[0],"2023-02-15 0800")
+createTimeOutEvent(newRecord[0],"2023-02-15 1600")
+createTimeInEvent(newRecord[0],"2023-02-16 0700")
+createTimeOutEvent(newRecord[0],"2023-02-16 1200")
 
-// createTimeInEvent(newRecord[1],"2023-02-15 0800")
-// createTimeOutEvent(newRecord[1],"2023-02-15 1600")
-// createTimeInEvent(newRecord[1],"2023-02-16 0700")
-// createTimeOutEvent(newRecord[1],"2023-02-16 1200")
-
+createTimeInEvent(newRecord[1],"2023-02-15 0800")
+createTimeOutEvent(newRecord[1],"2023-02-15 1600")
+createTimeInEvent(newRecord[1],"2023-02-16 0700")
+createTimeOutEvent(newRecord[1],"2023-02-16 1200")
+hoursWorkedOnDate(newRecord[0],"2023-02-16")
 
