@@ -63,10 +63,10 @@ function hoursWorkedOnDate(empRecord,date)
         {
             for (const value in record)
             {
-            if(record[value]===date)
-            {
-               hoursWorked=empRecord.timeOutEvents[index].hour-empRecord.timeInEvents[index].hour;
-            }
+                if(record[value]===date)
+                {
+                    hoursWorked=empRecord.timeOutEvents[index].hour-empRecord.timeInEvents[index].hour;
+                }
             }
             index++;
         })
@@ -75,16 +75,43 @@ function hoursWorkedOnDate(empRecord,date)
 
 function wagesEarnedOnDate(empRecord,date)
 {
- hoursWorkedOnDate(empRecord,date)*empRecord.payPerHour;
+ return hoursWorkedOnDate(empRecord,date)*empRecord.payPerHour;
 }
 
 
+function allWagesFor(empRecord)
+{
+    let totalWages=0;
+    empRecord.timeInEvents.forEach(record=>
+        {
+            totalWages=totalWages+wagesEarnedOnDate(empRecord,record.date)
+        })
+    return totalWages;
+}
+
+function calculatePayroll(empArray)
+{
+    let allWagesOwed=0;
+    empArray.forEach(emp=>{
+        allWagesOwed=allWagesOwed+allWagesFor(emp);
+    })
+    return allWagesOwed;
+}
 
 
-let newRecord=createEmployeeRecord(exampleArray)
-createTimeInEvent(newRecord,"2023-02-15 0800")
-createTimeOutEvent(newRecord,"2023-02-15 1600")
-createTimeInEvent(newRecord,"2023-02-16 0700")
-createTimeOutEvent(newRecord,"2023-02-16 1200")
-let hours=hoursWorkedOnDate(newRecord,"2023-02-15")
-console.log(hours)
+///////////////////
+// EXAMPLE DATA
+//////////////////
+
+let newRecord=createEmployeeRecords(exampleArray3)
+createTimeInEvent(newRecord[0],"2023-02-15 0800")
+createTimeOutEvent(newRecord[0],"2023-02-15 1600")
+createTimeInEvent(newRecord[0],"2023-02-16 0700")
+createTimeOutEvent(newRecord[0],"2023-02-16 1200")
+
+createTimeInEvent(newRecord[1],"2023-02-15 0800")
+createTimeOutEvent(newRecord[1],"2023-02-15 1600")
+createTimeInEvent(newRecord[1],"2023-02-16 0700")
+createTimeOutEvent(newRecord[1],"2023-02-16 1200")
+
+
