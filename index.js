@@ -23,12 +23,14 @@ function createEmployeeRecord(array)
 
 function createEmployeeRecords(arrayOfArrays)
 {
-    let employRecords=[];
-    arrayOfArrays.forEach(array=>
-        {
-            employRecords.push(createEmployeeRecord(array));
-        })
-    return employRecords;
+    let newArray=arrayOfArrays.map(element=>createEmployeeRecord(element))
+    return newArray;
+    // let employRecords=[];
+    // arrayOfArrays.forEach(array=>
+    //     {
+    //         employRecords.push(createEmployeeRecord(array));
+    //     })
+    // return employRecords;
 }
 
 function createTimeInEvent(empRecord,dateStamp)
@@ -103,15 +105,17 @@ function calculatePayroll(empArray)
 // EXAMPLE DATA
 //////////////////
 
-let newRecord=createEmployeeRecords(exampleArray3)
-createTimeInEvent(newRecord[0],"2023-02-15 0800")
-createTimeOutEvent(newRecord[0],"2023-02-15 1600")
-createTimeInEvent(newRecord[0],"2023-02-16 0700")
-createTimeOutEvent(newRecord[0],"2023-02-16 1200")
+createEmployeeRecords(exampleArray3)
 
-createTimeInEvent(newRecord[1],"2023-02-15 0800")
-createTimeOutEvent(newRecord[1],"2023-02-15 1600")
-createTimeInEvent(newRecord[1],"2023-02-16 0700")
-createTimeOutEvent(newRecord[1],"2023-02-16 1200")
+// let newRecord=createEmployeeRecords(exampleArray3)
+// createTimeInEvent(newRecord[0],"2023-02-15 0800")
+// createTimeOutEvent(newRecord[0],"2023-02-15 1600")
+// createTimeInEvent(newRecord[0],"2023-02-16 0700")
+// createTimeOutEvent(newRecord[0],"2023-02-16 1200")
+
+// createTimeInEvent(newRecord[1],"2023-02-15 0800")
+// createTimeOutEvent(newRecord[1],"2023-02-15 1600")
+// createTimeInEvent(newRecord[1],"2023-02-16 0700")
+// createTimeOutEvent(newRecord[1],"2023-02-16 1200")
 
 
