@@ -56,13 +56,10 @@ function hoursWorkedOnDate(empRecord,day)
     return (hourClockedOut[0].hour-hourClockedIn[0].hour)/100;
 }
 
-
-
 function wagesEarnedOnDate(empRecord,date)
 {
  return hoursWorkedOnDate(empRecord,date)*empRecord.payPerHour;
 }
-
 
 function allWagesFor(empRecord)
 {
@@ -71,11 +68,7 @@ function allWagesFor(empRecord)
 
 function calculatePayroll(empArray)
 {
-    let allWagesOwed=0;
-    empArray.forEach(emp=>{
-        allWagesOwed=allWagesOwed+allWagesFor(emp);
-    })
-    return allWagesOwed;
+    return empArray.reduce((acc, element)=> acc + allWagesFor(element),0);
 }
 
 
@@ -95,6 +88,6 @@ createTimeOutEvent(newRecord[1],"2023-02-15 1600")
 createTimeInEvent(newRecord[1],"2023-02-16 0700")
 createTimeOutEvent(newRecord[1],"2023-02-16 1200")
 
-allWagesFor(newRecord[0])
+calculatePayroll(newRecord)
 
 
